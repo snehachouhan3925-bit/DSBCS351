@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+int main() {
+    struct Node *head, *temp, *del;
+    int k, i;
+
+    // Create nodes
+    head = (struct Node *)malloc(sizeof(struct Node));
+    head->data = 10;
+
+    head->next = (struct Node *)malloc(sizeof(struct Node));
+    head->next->data = 20;
+
+    head->next->next = (struct Node *)malloc(sizeof(struct Node));
+    head->next->next->data = 30;
+
+    head->next->next->next = (struct Node *)malloc(sizeof(struct Node));
+    head->next->next->next->data = 40;
+
+    head->next->next->next->next = NULL;
+
+    // Position to delete
+    k = 3;
+
+    // Check empty list
+    if (head == NULL) {
+        printf("List is empty\n");
+    }
+
+    // Delete first node
+    else if (k == 1) {
+        del = head;
+        head = head->next;
+        free(del);
+    }
+
+    // Delete kth node
+    else {
+        temp = head;
+
+        // Move to node before kth position
+        for (i = 1; i < k - 1 && temp != NULL; i++) {
+            temp = temp->next;
+        }
+
+        if (temp == NULL || temp->next == NULL) {
+            printf("Invalid position\n");
+        }
+        else {
+            del = temp->next;
+            temp->next = del->next;
+            free(del);
+        }
+    }
+
+    // Display
+    temp = head;
+
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("NULL\n");
+
+    return 0;
+}
