@@ -1,0 +1,87 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+
+void insert(struct Node **head, int value)
+{
+    struct Node *newNode;
+    struct Node *temp;
+
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+   
+    if (*head == NULL)
+    {
+        *head = newNode;
+    }
+    else
+    {
+        temp = *head;
+
+        // Move to the last node
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+
+        // Link the new node
+        temp->next = newNode;
+    }
+}
+void display(struct Node *head)
+{
+    struct Node *temp = head;
+
+    if (head == NULL)
+    {
+        printf("Linked List is empty.\n");
+        return;
+    }
+
+    printf("Singly Linked List:\n");
+
+    while (temp != NULL)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("NULL\n");
+}
+
+int main()
+{
+    struct Node *head = NULL;
+    int n, value, i;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    // Create the linked list
+    for (i = 0; i < n; i++)
+    {
+        printf("Enter value for node %d: ", i + 1);
+        scanf("%d", &value);
+
+        insert(&head, value);
+    }
+
+    // Display the linked list
+    display(head);
+
+    return 0;
+}
+```
+

@@ -1,0 +1,144 @@
+# Insertion at Beginning and End in Singly Linked List
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+// Insert a node at the beginning
+void insertBeginning(struct Node **head, int value)
+{
+    struct Node *newNode;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = *head;
+
+    *head = newNode;
+}
+
+// Insert a node at the end
+void insertEnd(struct Node **head, int value)
+{
+    struct Node *newNode;
+    struct Node *temp;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If the list is empty
+    if (*head == NULL)
+    {
+        *head = newNode;
+        return;
+    }
+
+    temp = *head;
+
+    // Traverse to the last node
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+}
+
+// Display the linked list
+void display(struct Node *head)
+{
+    struct Node *temp = head;
+
+    printf("Linked List: ");
+
+    while (temp != NULL)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("NULL\n");
+}
+
+int main()
+{
+    struct Node *head = NULL;
+
+    // Insertion at beginning
+    insertBeginning(&head, 30);
+    insertBeginning(&head, 20);
+    insertBeginning(&head, 10);
+
+    printf("After insertion at beginning:\n");
+    display(head);
+
+    // Insertion at end
+    insertEnd(&head, 40);
+    insertEnd(&head, 50);
+
+    printf("After insertion at end:\n");
+    display(head);
+
+    return 0;
+}
+```
+
+### Output
+
+```text
+After insertion at beginning:
+Linked List: 10 -> 20 -> 30 -> NULL
+
+After insertion at end:
+Linked List: 10 -> 20 -> 30 -> 40 -> 50 -> NULL
+```
+
+### Working
+
+**Insertion at beginning:**
+
+```text
+Before:  20 -> 30 -> NULL
+
+Insert 10
+
+After:   10 -> 20 -> 30 -> NULL
+```
+
+**Insertion at end:**
+
+```text
+Before:  10 -> 20 -> 30 -> NULL
+
+Insert 40
+
+After:   10 -> 20 -> 30 -> 40 -> NULL
+```
+
+### Important Statements
+
+For beginning:
+
+```c
+newNode->next = *head;
+*head = newNode;
+```
+
+For end:
+
+```c
+while (temp->next != NULL)
+{
+    temp = temp->next;
+}
+
+temp->next = newNode;
+```

@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+// Insert at beginning
+void insertBeginning(struct Node **head, int value)
+{
+    struct Node *newNode;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = *head;
+
+    *head = newNode;
+}
+
+// Insert at end
+void insertEnd(struct Node **head, int value)
+{
+    struct Node *newNode;
+    struct Node *temp;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If list is empty
+    if (*head == NULL)
+    {
+        *head = newNode;
+        return;
+    }
+
+    temp = *head;
+
+    // Go to the last node
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+}
+
+// Display the list
+void display(struct Node *head)
+{
+    struct Node *temp = head;
+
+    while (temp != NULL)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("NULL\n");
+}
+
+int main()
+{
+    struct Node *head = NULL;
+
+    // Insertion at beginning
+    insertBeginning(&head, 30);
+    insertBeginning(&head, 20);
+    insertBeginning(&head, 10);
+
+    printf("After insertion at beginning:\n");
+    display(head);
+
+    // Insertion at end
+    insertEnd(&head, 40);
+    insertEnd(&head, 50);
+
+    printf("After insertion at end:\n");
+    display(head);
+
+    return 0;
+}
